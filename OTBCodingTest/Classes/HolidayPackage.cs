@@ -19,6 +19,12 @@ namespace OTBCodingTest.Classes
             }
         }
 
+        public HolidayPackage()
+        {
+            flight = new FlightBooking();
+            hotel = new HotelBooking();
+        }
+
         public HolidayPackage(FlightBooking flight, HotelBooking hotel)
         {
             this.flight = flight;

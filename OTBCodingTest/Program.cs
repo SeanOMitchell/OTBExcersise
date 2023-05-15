@@ -10,7 +10,16 @@ namespace OTBCodingTest
     {
         static void Main(string[] args)
         {
-            ProcessSearch search = new ProcessSearch();
+            SearchWorker search = new SearchWorker();
+
+            var test = search.SearchFlightsAndHotels("MAN", "AGP", new DateTime(2023, 7, 1), 7);
+            Display.DisplayPackage(test[0]);
+
+            test = search.SearchFlightsAndHotels("MAN", "PMI", new DateTime(2023, 6, 15), 10);
+            Display.DisplayPackage(test[0]);
+
+            test = search.SearchFlightsAndHotels("LGW", "AGP", new DateTime(2023, 7, 1), 7);
+            Display.DisplayPackage(test[0]);
 
             Console.ReadLine();
         }

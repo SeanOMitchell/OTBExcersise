@@ -13,9 +13,9 @@ namespace OTBCodingTest.Classes
         [JsonProperty("airline")]
         internal string airline;
         [JsonProperty("from")]
-        internal string from;
+        internal string departingFrom;
         [JsonProperty("to")]
-        internal string to;
+        internal string travelingTo;
         [JsonProperty("price")]
         internal int price; //Assuming price is fixed, if dependant on times should be moved to FlightBooking
     }

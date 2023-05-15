@@ -51,12 +51,11 @@
     <Compile Include="Classes\Flight.cs" />
     <Compile Include="Classes\FlightBooking.cs" />
     <Compile Include="Classes\HolidayPackage.cs" />
-    <Compile Include="Classes\HolidaySearch.cs" />
     <Compile Include="Classes\Hotel.cs" />
     <Compile Include="Classes\HotelBooking.cs" />
     <Compile Include="Display.cs" />
-    <Compile Include="Interfaces\IHolidaySearch.cs" />
-    <Compile Include="ProcessSearch.cs" />
+    <Compile Include="Interfaces\ISearchWorker.cs" />
+    <Compile Include="SearchWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
