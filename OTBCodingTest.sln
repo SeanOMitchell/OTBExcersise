@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTBCodingTest", "OTBCodingTest\OTBCodingTest.csproj", "{18E62E21-F869-4ABB-9AAB-D72322D321C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{BE64E797-0207-4A77-975C-BE765A067641}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18E62E21-F869-4ABB-9AAB-D72322D321C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E62E21-F869-4ABB-9AAB-D72322D321C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18E62E21-F869-4ABB-9AAB-D72322D321C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18E62E21-F869-4ABB-9AAB-D72322D321C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE64E797-0207-4A77-975C-BE765A067641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE64E797-0207-4A77-975C-BE765A067641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE64E797-0207-4A77-975C-BE765A067641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE64E797-0207-4A77-975C-BE765A067641}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E803258-A635-49B2-ABD6-8372FFC86B32}
+	EndGlobalSection
+EndGlobal
