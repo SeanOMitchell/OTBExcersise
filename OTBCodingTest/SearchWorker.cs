@@ -35,11 +35,15 @@ namespace OTBCodingTest
         /// Reads in flight and hotel information from json files.
         /// File locations are defined in App.config
         /// </summary>
-        public SearchWorker()
+        public SearchWorker(string flightDataLocation = "", string hotelDataLocation = "")
         {
             try
             {
-                string flightDataLocation = ConfigurationManager.AppSettings["flightData"];
+
+                if (string.IsNullOrEmpty(flightDataLocation))
+                {
+                    flightDataLocation = ConfigurationManager.AppSettings["flightData"];
+                }             
                 if (File.Exists(flightDataLocation))
                 {
                     string flightInfo = File.ReadAllText(flightDataLocation);
@@ -50,7 +54,10 @@ namespace OTBCodingTest
                     Console.WriteLine("No flight data found");
                 }
 
-                string hotelDataLocation = ConfigurationManager.AppSettings["hotelData"];
+                if (string.IsNullOrEmpty(hotelDataLocation))
+                {
+                    hotelDataLocation = ConfigurationManager.AppSettings["hotelData"];
+                }
                 if (File.Exists(hotelDataLocation))
                 {
                     string hotelInfo = File.ReadAllText(hotelDataLocation);
@@ -91,15 +98,15 @@ namespace OTBCodingTest
                 else
                 {
                     potentialFlights = flightBookings.Where(f => f.departureDate.Date == departureDate.Date &&
-                string.Equals(f.departingFrom, departFrom, StringComparison.OrdinalIgnoreCase) && 
-                string.Equals(f.travelingTo, travelTo, StringComparison.OrdinalIgnoreCase)).ToList();
+                        string.Equals(f.departingFrom, departFrom, StringComparison.OrdinalIgnoreCase) &&
+                        string.Equals(f.travelingTo, travelTo, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
 
-            List<HotelBooking> potentialHotels = hotelBookings.Where(h => h.arrivalDate.Date == departureDate.Date &&
-            h.localAirports.Contains(travelTo) && 
-            h.nights == duration).ToList();
+                List<HotelBooking> potentialHotels = hotelBookings.Where(h => h.arrivalDate.Date == departureDate.Date &&
+                    h.localAirports.Contains(travelTo) &&
+                    h.nights == duration).ToList();
 
-            retPackages = potentialFlights.SelectMany(f => potentialHotels.Select(h => new HolidayPackage(f, h))).OrderBy(p => p.totalCost).ToList();
+                retPackages = potentialFlights.SelectMany(f => potentialHotels.Select(h => new HolidayPackage(f, h))).OrderBy(p => p.totalCost).ToList();
             }
             catch (Exception ex)
             {
