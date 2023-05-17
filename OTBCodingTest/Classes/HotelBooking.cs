@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
-    internal class HotelBooking : Hotel
+    public class HotelBooking : Hotel
     {
         [JsonProperty("id")]
-        internal int id;
+        public int id;
         [JsonProperty("arrival_date")]
         internal DateTime arrivalDate;
         [JsonProperty("nights")]

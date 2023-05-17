@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
-    internal class HolidayPackage
+    public class HolidayPackage
     {
-        internal FlightBooking flight;
-        internal HotelBooking hotel;
+        public FlightBooking flight;
+        public HotelBooking hotel;
 
         internal int totalCost
         {

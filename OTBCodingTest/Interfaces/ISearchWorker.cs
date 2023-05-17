@@ -9,6 +9,6 @@ namespace OTBCodingTest.Interfaces
 {
     internal interface ISearchWorker
     {
-        List<HolidayPackage> SearchFlightsAndHotels(string departFrom, string travelTo, DateTime departureDate, int duration);
+        List<HolidayPackage> SearchFlightsAndHotels(DateTime departureDate, int duration, string departFrom = "", string travelTo = "");
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OTBCodingTest.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,13 @@ namespace OTBCodingTest
         {
             SearchWorker search = new SearchWorker();
 
-            var test = search.SearchFlightsAndHotels("MAN", "AGP", new DateTime(2023, 7, 1), 7);
+            List<HolidayPackage> test = search.SearchFlightsAndHotels(new DateTime(2023, 7, 1), 7, "MAN", "AGP");
             Display.DisplayPackage(test[0]);
 
-            test = search.SearchFlightsAndHotels("MAN", "PMI", new DateTime(2023, 6, 15), 10);
+            test = search.SearchFlightsAndHotels(new DateTime(2023, 6, 15), 10, "London", "PMI");
             Display.DisplayPackage(test[0]);
 
-            test = search.SearchFlightsAndHotels("LGW", "AGP", new DateTime(2023, 7, 1), 7);
+            test = search.SearchFlightsAndHotels(new DateTime(2022, 11, 10), 14, null, "LPA");
             Display.DisplayPackage(test[0]);
 
             Console.ReadLine();

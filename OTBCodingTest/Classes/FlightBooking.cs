@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
-    internal class FlightBooking : Flight
+    public class FlightBooking : Flight
     {
         [JsonProperty("id")]
-        internal int id;
+        public int id;
         [JsonProperty("departure_date")]
         internal DateTime departureDate;
     }

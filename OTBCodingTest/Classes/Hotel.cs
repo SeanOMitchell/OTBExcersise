@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
-    internal class Hotel
+    public class Hotel
     {
         [JsonProperty("name")]
         internal string name;
