@@ -78,34 +78,53 @@ namespace OTBCodingTest
         {
             List<HolidayPackage> retPackages = new List<HolidayPackage>();
 
-            List<FlightBooking> potentialFlights = new List<FlightBooking>();
-
             try
             {
-                if (string.IsNullOrEmpty(departFrom))
+                //Initial narrowing down ot flights and hotels - based upon required criteria
+                List<FlightBooking> potentialFlights = flightBookings.Where(f => f.departureDate.Date == departureDate.Date).ToList();
+                List<HotelBooking> potentialHotels = hotelBookings.Where(h => h.arrivalDate.Date == departureDate.Date && h.nights == duration).ToList();
+
+                //If not allowing all airports for departure
+                if (!string.IsNullOrEmpty(departFrom))
                 {
-                    potentialFlights = flightBookings.Where(f => f.departureDate.Date == departureDate.Date &&
-                    string.Equals(f.travelingTo, travelTo, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                else if (departFrom.Length > 3)
+                    //Since all airport codes are 3 chars long, if over that then assume a location is given
+                    if (departFrom.Length > 3)
                 {
+                        //Searches dictionary of locations for all airports at the given location..
                     List<string> airportsAtLocation = airportLocations.Where(l => l.Value == departFrom).Select(l => l.Key).ToList();
 
-                    potentialFlights = flightBookings.Where(f => f.departureDate.Date == departureDate.Date &&
-                    airportsAtLocation.Contains(f.departingFrom, StringComparer.CurrentCultureIgnoreCase) &&
-                    string.Equals(f.travelingTo, travelTo, StringComparison.OrdinalIgnoreCase)).ToList();
+                        //..and filter flights accordingly
+                        potentialFlights = potentialFlights.Where(f => airportsAtLocation.Contains(f.departingFrom, StringComparer.CurrentCultureIgnoreCase)).ToList();
                 }
                 else
                 {
-                    potentialFlights = flightBookings.Where(f => f.departureDate.Date == departureDate.Date &&
-                        string.Equals(f.departingFrom, departFrom, StringComparison.OrdinalIgnoreCase) &&
-                        string.Equals(f.travelingTo, travelTo, StringComparison.OrdinalIgnoreCase)).ToList();
+                        //Filter to only flights from the single provided airport
+                        potentialFlights = potentialFlights.Where(f => string.Equals(f.departingFrom, departFrom, StringComparison.OrdinalIgnoreCase)).ToList();
+                    }
                 }
 
-                List<HotelBooking> potentialHotels = hotelBookings.Where(h => h.arrivalDate.Date == departureDate.Date &&
-                    h.localAirports.Contains(travelTo) &&
-                    h.nights == duration).ToList();
+                //If not allowing all airports for the destination
+                if (!string.IsNullOrEmpty(travelTo))
+                {
+                    //Same logic as above ^
+                    if (travelTo.Length > 3)
+                    {
+                        List<string> airportsAtLocation = airportLocations.Where(l => l.Value == travelTo).Select(l => l.Key).ToList();
 
+                        //Filter flights as above ^..
+                        potentialFlights = potentialFlights.Where(f => airportsAtLocation.Contains(f.travelingTo, StringComparer.CurrentCultureIgnoreCase)).ToList();
+                        //..and also filter hotels - if any hotels at the given location are listed as a local_airport
+                        potentialHotels = potentialHotels.Where(h => h.localAirports.Any(la => airportsAtLocation.Contains(la, StringComparer.CurrentCultureIgnoreCase))).ToList();
+                    }
+                    else
+                    {
+                        //Filter to only flights and hotels from the single provided airport
+                        potentialFlights = potentialFlights.Where(f => string.Equals(f.travelingTo, travelTo, StringComparison.OrdinalIgnoreCase)).ToList();
+                        potentialHotels = potentialHotels.Where(h => h.localAirports.Contains(travelTo, StringComparer.CurrentCultureIgnoreCase)).ToList();
+                    }
+                }
+
+                //Select all combinations of flights and hotels, ordering by cheapest -> most expensive
                 retPackages = potentialFlights.SelectMany(f => potentialHotels.Select(h => new HolidayPackage(f, h))).OrderBy(p => p.totalCost).ToList();
             }
             catch (Exception ex)
