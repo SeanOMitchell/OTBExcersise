@@ -9,8 +9,6 @@ namespace OTBCodingTest.Classes
 {
     public class HotelBooking : Hotel
     {
-        [JsonProperty("id")]
-        public int id;
         [JsonProperty("arrival_date")]
         internal DateTime arrivalDate;
         [JsonProperty("nights")]

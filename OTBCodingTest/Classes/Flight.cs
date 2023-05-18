@@ -10,6 +10,8 @@ namespace OTBCodingTest.Classes
 {
     public class Flight
     {
+        [JsonProperty("id")]
+        public int id;
         [JsonProperty("airline")]
         internal string airline;
         [JsonProperty("from")]

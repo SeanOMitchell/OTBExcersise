@@ -9,6 +9,8 @@ namespace OTBCodingTest.Classes
 {
     public class Hotel
     {
+        [JsonProperty("id")]
+        public int id;
         [JsonProperty("name")]
         internal string name;
         [JsonProperty("price_per_night")]

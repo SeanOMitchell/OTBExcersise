@@ -10,8 +10,6 @@ namespace OTBCodingTest.Classes
 {
     public class FlightBooking : Flight
     {
-        [JsonProperty("id")]
-        public int id;
         [JsonProperty("departure_date")]
         internal DateTime departureDate;
     }
