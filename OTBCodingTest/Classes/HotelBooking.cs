@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
+    /// <summary>
+    /// A hotel stay
+    /// </summary>
     public class HotelBooking : Hotel
     {
         [JsonProperty("arrival_date")]

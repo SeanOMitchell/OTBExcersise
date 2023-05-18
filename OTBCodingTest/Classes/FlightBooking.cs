@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
+    /// <summary>
+    /// An individual, bookable flight
+    /// </summary>
     public class FlightBooking : Flight
     {
         [JsonProperty("departure_date")]

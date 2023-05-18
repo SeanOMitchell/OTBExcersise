@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
+    /// <summary>
+    /// A flight and hotel combination
+    /// </summary>
     public class HolidayPackage
     {
         public FlightBooking flight;

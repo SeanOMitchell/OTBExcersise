@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace OTBCodingTest.Classes
 {
+    /// <summary>
+    /// A flight route
+    /// </summary>
     public class Flight
     {
         [JsonProperty("id")]

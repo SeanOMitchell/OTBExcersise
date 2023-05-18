@@ -19,7 +19,8 @@ namespace OTBCodingTest
         private List<HotelBooking> hotelBookings = new List<HotelBooking>();
         private List<FlightBooking> flightBookings = new List<FlightBooking>();
 
-        //Originally going to go with enums, but would have required too many - this allows simple lookups
+        //Dictionary of airport codes and their locations
+        //Used when searching locations / multiple airports
         private Dictionary<string, string> airportLocations = new Dictionary<string, string>
         {
             { "MAN", "Manchester"},
@@ -33,13 +34,16 @@ namespace OTBCodingTest
 
         /// <summary>
         /// Reads in flight and hotel information from json files.
-        /// File locations are defined in App.config
+        /// If not provided paths, these are read from config file.
         /// </summary>
+        /// <param name="flightDataLocation">Location of flight data JSON.</param>
+        /// <param name="hotelDataLocation">Location of hotel data JSON.</param>
         public SearchWorker(string flightDataLocation = "", string hotelDataLocation = "")
         {
             try
             {
-
+                //If not explicitly passed a path, attempt to get path from App.config
+                // - Flight information -
                 if (string.IsNullOrEmpty(flightDataLocation))
                 {
                     flightDataLocation = ConfigurationManager.AppSettings["flightData"];
@@ -54,6 +58,8 @@ namespace OTBCodingTest
                     Console.WriteLine("No flight data found");
                 }
 
+                //As above ^
+                // - Hotel information -
                 if (string.IsNullOrEmpty(hotelDataLocation))
                 {
                     hotelDataLocation = ConfigurationManager.AppSettings["hotelData"];
@@ -74,6 +80,15 @@ namespace OTBCodingTest
             }
         }
 
+        /// <summary>
+        /// Searches the worker's known flights and hotels using the provided criteria.
+        /// Returns a list of HolidayPackages, ordered from least -> most expensive overall.
+        /// </summary>
+        /// <param name="departureDate">When the flight is due to depart.</param>
+        /// <param name="duration">How long the hotel booking will be for.</param>
+        /// <param name="departFrom">Airport(s) to depart from. Can be left blank to search all, or can use location name to search all at that location.</param>
+        /// <param name="travelTo">Airport(s) to arrive at. Can be left blank to search all, or can use location name to search all at that location.</param>
+        /// <returns></returns>
         public List<HolidayPackage> SearchFlightsAndHotels(DateTime departureDate, int duration, string departFrom = "", string travelTo = "")
         {
             List<HolidayPackage> retPackages = new List<HolidayPackage>();
@@ -89,15 +104,15 @@ namespace OTBCodingTest
                 {
                     //Since all airport codes are 3 chars long, if over that then assume a location is given
                     if (departFrom.Length > 3)
-                {
+                    {
                         //Searches dictionary of locations for all airports at the given location..
-                    List<string> airportsAtLocation = airportLocations.Where(l => l.Value == departFrom).Select(l => l.Key).ToList();
+                        List<string> airportsAtLocation = airportLocations.Where(l => l.Value == departFrom).Select(l => l.Key).ToList();
 
                         //..and filter flights accordingly
                         potentialFlights = potentialFlights.Where(f => airportsAtLocation.Contains(f.departingFrom, StringComparer.CurrentCultureIgnoreCase)).ToList();
-                }
-                else
-                {
+                    }
+                    else
+                    {
                         //Filter to only flights from the single provided airport
                         potentialFlights = potentialFlights.Where(f => string.Equals(f.departingFrom, departFrom, StringComparison.OrdinalIgnoreCase)).ToList();
                     }
