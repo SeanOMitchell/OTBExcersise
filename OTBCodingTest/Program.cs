@@ -14,13 +14,16 @@ namespace OTBCodingTest
             SearchWorker search = new SearchWorker();
 
             List<HolidayPackage> test = search.SearchFlightsAndHotels(new DateTime(2023, 7, 1), 7, "MAN", "AGP");
-            Display.DisplayPackage(test[0]);
+            Display.DisplayBestPackage(test);
 
             test = search.SearchFlightsAndHotels(new DateTime(2023, 6, 15), 10, "London", "PMI");
-            Display.DisplayPackage(test[0]);
+            Display.DisplayBestPackage(test);
 
             test = search.SearchFlightsAndHotels(new DateTime(2022, 11, 10), 14, null, "LPA");
-            Display.DisplayPackage(test[0]);
+            Display.DisplayBestPackage(test);
+
+            test = search.SearchFlightsAndHotels(new DateTime(2022, 11, 10), 14, null, "Gran Canaria");
+            Display.DisplayBestPackage(test);
 
             Console.ReadLine();
         }

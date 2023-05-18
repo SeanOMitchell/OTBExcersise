@@ -9,18 +9,38 @@ namespace OTBCodingTest
 {
     internal static class Display
     {
-        internal static void DisplayPackage(HolidayPackage package)
+        /// <summary>
+        /// Writes information about the given holiday package to the console window.
+        /// </summary>
+        /// <param name="package">The package to display.</param>
+        internal static void DisplayBestPackage(List<HolidayPackage> packages)
         {
-            Console.WriteLine("Selected package:");
-            Console.WriteLine();
-            Console.WriteLine($"Total Price: £{package.totalCost}");
-            Console.WriteLine();
-            Console.WriteLine("Flight information:");
-            Console.WriteLine($"Flight id: {package.flight.id} | Departing from [ {package.flight.departingFrom} ] | Traveling to [ {package.flight.travelingTo} ] | Price: £{package.flight.price}");
-            Console.WriteLine();
-            Console.WriteLine("Hotel information:");
-            Console.WriteLine($"Hotel id: {package.hotel.id} | Name: {package.hotel.name} | Price: £{package.hotel.totalCost}");
-            Console.WriteLine("-----------------------------------");
+            try
+            {
+                if (packages.Count > 0)
+                {
+                    HolidayPackage displayPackage = packages[0];
+
+                    Console.WriteLine("Selected package:");
+                    Console.WriteLine();
+                    Console.WriteLine($"Total Price: £{displayPackage.totalCost}");
+                    Console.WriteLine();
+                    Console.WriteLine("Flight information:");
+                    Console.WriteLine($"Flight id: {displayPackage.flight.id} | Departing from [ {displayPackage.flight.departingFrom} ] | Traveling to [ {displayPackage.flight.travelingTo} ] | Price: £{displayPackage.flight.price}");
+                    Console.WriteLine();
+                    Console.WriteLine("Hotel information:");
+                    Console.WriteLine($"Hotel id: {displayPackage.hotel.id} | Name: {displayPackage.hotel.name} | Price: £{displayPackage.hotel.totalCost}");
+                    Console.WriteLine("-----------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("No packages found");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DisplayPackage:: Could not display given package | {ex}");
+            }
         }
     }
 }
